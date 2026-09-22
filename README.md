@@ -1,200 +1,270 @@
-# Quiz des types Pokemon
+# Quiz des types Pokémon
 
-Un petit quiz en ligne de commande ecrit en Python. Le joueur doit reconnaitre l'efficacite d'une attaque contre un type Pokemon :
-
-```text
-Glace attaque Acier, est-ce :
-1 - Normal
-2 - Tres efficace
-3 - Peu efficace
-4 - Sans effet
-```
-
-Le projet est volontairement simple et tient principalement dans [Main.py](Main.py), afin d'etre accessible a une personne qui debute en Python.
-
-## Version web
-
-Le quiz existe aussi en version web responsive :
-
-- `index.html` contient la structure de la page.
-- `styles.css` gere la mise en page PC/mobile, les couleurs et les animations.
-- `app.js` contient les regles du tableau et le fonctionnement du quiz.
-
-Pour l'ouvrir rapidement, double-cliquez sur `index.html`. Pour lancer un petit serveur local dans PowerShell :
-
-```powershell
-cd C:\Users\Eliot\Documents\PokemonTypeQuizz
-py -m http.server 8000
-```
-
-Ouvrez ensuite [http://localhost:8000](http://localhost:8000) dans votre navigateur. Le serveur peut etre arrete avec `Ctrl+C`.
-
-## 1. Prerequis
-
-Il faut installer Python 3. Vous pouvez verifier l'installation dans PowerShell :
-
-```powershell
-py --version
-```
-
-Si la commande affiche une version, Python est disponible.
-
-## 2. Lancer le quiz
-
-Ouvrez PowerShell dans le dossier du projet :
-
-```powershell
-cd C:\Users\Eliot\Documents\PokemonTypeQuizz
-py Main.py
-```
-
-Le programme demande :
-
-1. Le tableau des types a utiliser : generations 2 a 5, ou generation 6 et suivantes.
-2. Le nombre de questions, entre 1 et 50.
-3. Une reponse de 1 a 4 pour chaque question.
-4. Si vous voulez rejouer avec `o` pour oui ou `n` pour non.
-
-## 3. Organisation du fichier
-
-### Les imports
-
-```python
-import random
-import sys
-```
-
-- `random` permet de melanger les questions.
-- `sys` permet de savoir si le programme est execute dans un vrai terminal.
-
-### Les constantes
-
-Une constante est une valeur que le programme ne modifie pas pendant son execution. Par convention, son nom est ecrit en majuscules.
-
-- `OLDER_TYPES` contient les types disponibles des generations 2 a 5.
-- `NEWER_TYPES` reprend ces types et ajoute `Fairy`.
-- `ANSWER_LABELS` transforme un multiplicateur numerique en reponse interne.
-- `TYPE_NAMES_FR` traduit les noms internes anglais vers les noms affiches en francais.
-- `COLORS` contient les couleurs generales de l'interface.
-- `TYPE_COLORS` contient une couleur differente pour chaque type.
-
-Les noms internes restent en anglais dans le code pour garder les regles faciles a comparer. L'utilisateur voit les traductions francaises.
-
-## 4. Les couleurs du terminal
-
-Les couleurs sont des codes ANSI, par exemple `\\033[92m` pour le vert.
-
-```python
-USE_COLORS = sys.stdout.isatty()
-```
-
-`sys.stdout.isatty()` renvoie `True` si le programme ecrit dans un terminal interactif. Dans ce cas, les couleurs sont activees. Si la sortie est redirigee dans un fichier, les couleurs sont desactivees pour eviter d'ecrire des codes inutiles dans le fichier.
-
-La fonction `colorize()` ajoute une couleur aux textes generaux. La fonction `colorize_type()` fait deux choses : elle traduit le nom du type, puis lui applique sa couleur.
-
-## 5. Le tableau d'efficacite
-
-La fonction `build_chart()` construit un dictionnaire a deux niveaux :
-
-```python
-chart[attaque][defenseur] = multiplicateur
-```
+Ce projet est un petit jeu web dans lequel tu dois choisir la bonne efficacité d'une attaque Pokémon.
 
 Exemple :
 
-```python
-chart["Ice"]["Dragon"] == 2.0
+```text
+Glace attaque Dragon
+Quel est le bon verdict ?
 ```
 
-Cela signifie qu'une attaque Glace est tres efficace contre un Pokemon Dragon.
+Tu as 4 choix :
 
-Les multiplicateurs possibles sont :
+- Normal
+- Très efficace
+- Peu efficace
+- Sans effet
 
-| Multiplicateur | Signification |
-| --- | --- |
-| `2.0` | Tres efficace |
-| `1.0` | Normal |
-| `0.5` | Peu efficace |
-| `0.0` | Sans effet |
+Le but est simple : répondre vite et juste, puis finir le quiz avec le meilleur score possible.
 
-La fonction `set_effectiveness()` evite de repeter la meme instruction pour plusieurs types defenseurs.
+Ce projet est pensé pour être très accessible, même si tu n'as jamais fait de Python, HTML, CSS ou JavaScript.
 
-## 6. Le deroulement d'une partie
+## Ce que tu peux faire avec ce projet
 
-### `choose_generation()`
+- Jouer directement dans le navigateur
+- Comprendre les bases du développement web
+- Modifier le jeu pour l'améliorer
+- Apprendre à lire un code de projet simple
 
-Affiche les deux versions du tableau et recommence la question tant que la saisie n'est pas `1` ou `2`.
+## Prérequis
 
-### `choose_question_count()`
+Tu n'as pas besoin d'installer beaucoup de choses.
 
-Lit le nombre de questions. Une boucle `while True` permet de redemander une valeur tant que celle-ci n'est pas un nombre entre 1 et 50. Si le joueur appuie directement sur Entree, la valeur par defaut est 10.
+Il te faut juste :
 
-### `run_quiz()`
+- Un navigateur web moderne (Chrome, Edge, Firefox, etc.)
+- Un fichier du projet sur ton ordinateur
 
-1. Construit tous les couples attaque/defenseur possibles.
-2. Melange ces couples avec `random.shuffle()`.
-3. Affiche le nombre de questions demande.
-4. Compare la reponse du joueur a la bonne reponse.
-5. Augmente `score` lorsqu'elle est correcte.
-6. Affiche le score final.
+Optionnel :
 
-Cette ligne utilise une comprehension de liste :
+- VS Code pour ouvrir les fichiers plus facilement
+- Une extension de serveur local si tu veux lancer le projet avec un mini serveur
 
-```python
-pairs = [(attack, defender) for attack in chart for defender in chart]
-```
+## Lancer le jeu
 
-Elle signifie : pour chaque type d'attaque, creer un couple avec chaque type defenseur.
+### Option 1 : ouvrir directement le fichier HTML
 
-### `main()`
+Tu peux simplement double-cliquer sur le fichier `index.html`.
 
-C'est le point de depart du programme. Le bloc suivant lance `main()` uniquement lorsque `Main.py` est execute directement :
+Ça ouvre la page dans ton navigateur et le jeu est prêt à jouer.
 
-```python
-if __name__ == "__main__":
-    main()
-```
+### Option 2 : lancer un petit serveur local
 
-Cette protection permet aussi d'importer les fonctions dans un autre fichier sans lancer automatiquement le quiz.
-
-## 7. Creer un fichier executable `.exe`
-
-Installez PyInstaller une seule fois :
+Dans PowerShell, va dans le dossier du projet puis lance :
 
 ```powershell
-py -m pip install pyinstaller
+cd C:\chemin\vers\ton\dossier
+py -m http.server 8000
 ```
 
-Puis construisez l'executable depuis le dossier du projet :
-
-```powershell
-cd C:\Users\Eliot\Documents\PokemonTypeQuizz
-py -m PyInstaller --onefile --name PokemonTypeQuiz Main.py
-```
-
-Le fichier sera cree ici :
+Ensuite ouvre dans ton navigateur :
 
 ```text
-dist\PokemonTypeQuiz.exe
+http://localhost:8000
 ```
 
-`--onefile` demande a PyInstaller de produire un seul fichier executable. Fermez l'ancien `.exe` avant de le reconstruire s'il est encore ouvert.
-
-## 8. Modifier le quiz
-
-Quelques modifications faciles pour s'exercer :
-
-- Changer le nombre maximum de questions dans `choose_question_count()`.
-- Modifier un texte affiche par `print()`.
-- Changer une couleur dans `COLORS` ou `TYPE_COLORS`.
-- Ajouter une nouvelle regle avec `set_effectiveness()`.
-- Ajouter une statistique, comme le pourcentage de bonnes reponses.
-- Ajouter un mode d'entrainement qui affiche la bonne reponse sans compter le score.
-
-Apres chaque modification, verifiez la syntaxe :
+Si `py` ne fonctionne pas, essaie `python` à la place :
 
 ```powershell
-py -m py_compile Main.py
+python -m http.server 8000
 ```
 
-Puis relancez le programme pour tester le comportement.
+## Structure du projet
+
+Voici à quoi sert chaque fichier :
+
+- `index.html` : la structure de la page web
+- `styles.css` : le design, les couleurs, les boutons, le layout
+- `app.js` : la logique du jeu, les règles de types et le score
+
+### En français simple :
+
+- HTML = la base de la page
+- CSS = ce qui donne du style
+- JavaScript = ce qui rend la page interactive
+
+Tu n'as pas besoin de tout comprendre d'un coup. L'important est de voir qu'un projet web est souvent séparé en 3 morceaux :
+
+1. le contenu
+2. le visuel
+3. le comportement
+
+## Comment fonctionne le jeu
+
+Le jeu utilise un "tableau d'efficacité" de Pokémon.
+
+Chaque type a un effet sur les autres types :
+
+- très efficace
+- normal
+- peu efficace
+- sans effet
+
+Dans le code, ça ressemble à quelque chose comme :
+
+```javascript
+chart["Ice"]["Dragon"] = 2;
+```
+
+Cela veut dire :
+
+- Glace attaque Dragon
+- et c'est très efficace
+
+Le fichier `app.js` contient :
+
+- les types Pokémon
+- les règles de bonus/malus
+- les questions aléatoires
+- le calcul du score
+- la gestion de l'affichage final
+
+## Comment modifier le jeu
+
+Tu peux commencer par de petites changements simples.
+
+### 1. Changer le texte
+
+Ouvre `index.html` ou `app.js` et modifie les textes affichés à l'écran.
+
+Par exemple :
+
+- remplacer "Très efficace" par "Super efficace"
+- changer "Question 01 / 10" en quelque chose de ton goût
+- modifier le message final
+
+### 2. Changer les couleurs
+
+Ouvre `styles.css` et change les couleurs.
+
+Tu peux tester des choses comme :
+
+- fond plus sombre
+- boutons rouges ou violets
+- texte plus grand
+
+### 3. Modifier les règles
+
+Dans `app.js`, la fonction `buildChart()` contient les règles de combat.
+
+C'est ici que sont définis les bonus et malus entre les types.
+
+Si tu veux ajouter une règle ou corriger une règle, c'est là qu'il faut regarder.
+
+### 4. Modifier le nombre de questions
+
+Le jeu limite le nombre de questions, mais tu peux le changer dans `app.js`.
+
+Le code vérifie souvent une valeur comme :
+
+```javascript
+Math.min(50, Math.max(1, ...))
+```
+
+Ça veut dire :
+
+- minimum 1 question
+- maximum 50 questions
+- sinon, on prend une valeur sûre
+
+## Ce que tu peux apprendre en lisant le code
+
+Même si tu es débutant, tu peux déjà comprendre une partie du projet.
+
+### Les variables
+
+```javascript
+let score = 0;
+```
+
+Une variable sert à stocker une valeur. Ici, le score du joueur.
+
+### Les fonctions
+
+```javascript
+function startQuiz() {
+  // logique de démarrage
+}
+```
+
+Une fonction, c'est un petit bloc de code qui fait une action précise.
+
+### Les tableaux
+
+```javascript
+const OLDER_TYPES = ["Normal", "Fire", "Water", "Electric"];
+```
+
+Un tableau est une liste de valeurs.
+
+### Les objets
+
+```javascript
+const TYPE_NAMES = {
+  Normal: "Normal",
+  Fire: "Feu"
+};
+```
+
+Un objet associe une clé à une valeur. Ici, le type anglais est associé à son nom français.
+
+## Tester le projet
+
+Quand tu modifies quelque chose :
+
+1. ouvre `index.html` dans le navigateur
+2. ou recharge la page si tu utilises un serveur local
+3. vérifie que le jeu fonctionne encore
+
+Pour un jeu simple, il vaut mieux faire de très petits changements et tester souvent.
+
+## Astuces pour bien commencer
+
+Si tu veux apprendre sans te perdre :
+
+- commence par lire `index.html`
+- puis `styles.css`
+- puis `app.js`
+- essaie un changement facile, comme un mot ou une couleur
+- recharge la page et vérifie le résultat
+
+C'est souvent comme ça qu'on apprend en développement :
+
+- petit changement
+- test
+- correction
+- repetition
+
+## Idée de progression
+
+Voici quelques améliorations faciles à essayer :
+
+- ajouter un compteur de bonnes réponses
+- afficher un message plus détaillé à la fin
+- ajouter un mode "entrainement"
+- changer le thème visuel du jeu
+- ajouter de la musique ou un son simple
+
+## Résumé
+
+Ce projet est une bonne petite introduction au développement web parce qu'il est :
+
+- simple
+- visible immédiatement
+- modifiable facilement
+- parfait pour apprendre sans beaucoup de dépendances
+
+Tu n'as pas besoin de tout maîtriser pour commencer : il suffit de comprendre le but et de faire une petite modification à la fois.
+
+## Fichiers importants
+
+- [index.html](index.html)
+- [styles.css](styles.css)
+- [app.js](app.js)
+
+Si tu veux, je peux aussi te faire une version encore plus simple de ce README, avec :
+
+- une explication étape par étape du code
+- une liste de mini défis pour débutant
+- une version 100 % en français très pédagogique
