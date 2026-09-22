@@ -1,270 +1,140 @@
 # Quiz des types Pokémon
 
-Ce projet est un petit jeu web dans lequel tu dois choisir la bonne efficacité d'une attaque Pokémon.
+Ce projet est un petit jeu de quiz web basé sur les types Pokémon.
 
-Exemple :
-
-```text
-Glace attaque Dragon
-Quel est le bon verdict ?
-```
-
-Tu as 4 choix :
+Le joueur voit une attaque et un type défendant, puis doit choisir le bon effet de cette attaque :
 
 - Normal
 - Très efficace
 - Peu efficace
 - Sans effet
 
-Le but est simple : répondre vite et juste, puis finir le quiz avec le meilleur score possible.
+Le but est de répondre correctement au plus grand nombre de questions possible.
 
-Ce projet est pensé pour être très accessible, même si tu n'as jamais fait de Python, HTML, CSS ou JavaScript.
+## Ce que contient le projet
 
-## Ce que tu peux faire avec ce projet
+Le projet est composé de trois fichiers principaux :
 
-- Jouer directement dans le navigateur
-- Comprendre les bases du développement web
-- Modifier le jeu pour l'améliorer
-- Apprendre à lire un code de projet simple
+- `index.html` : la structure de la page
+- `styles.css` : le style visuel
+- `app.js` : la logique du quiz
 
-## Prérequis
+## Comment le quiz fonctionne
 
-Tu n'as pas besoin d'installer beaucoup de choses.
-
-Il te faut juste :
-
-- Un navigateur web moderne (Chrome, Edge, Firefox, etc.)
-- Un fichier du projet sur ton ordinateur
-
-Optionnel :
-
-- VS Code pour ouvrir les fichiers plus facilement
-- Une extension de serveur local si tu veux lancer le projet avec un mini serveur
-
-## Lancer le jeu
-
-### Option 1 : ouvrir directement le fichier HTML
-
-Tu peux simplement double-cliquer sur le fichier `index.html`.
-
-Ça ouvre la page dans ton navigateur et le jeu est prêt à jouer.
-
-### Option 2 : lancer un petit serveur local
-
-Dans PowerShell, va dans le dossier du projet puis lance :
-
-```powershell
-cd C:\chemin\vers\ton\dossier
-py -m http.server 8000
-```
-
-Ensuite ouvre dans ton navigateur :
-
-```text
-http://localhost:8000
-```
-
-Si `py` ne fonctionne pas, essaie `python` à la place :
-
-```powershell
-python -m http.server 8000
-```
-
-## Structure du projet
-
-Voici à quoi sert chaque fichier :
-
-- `index.html` : la structure de la page web
-- `styles.css` : le design, les couleurs, les boutons, le layout
-- `app.js` : la logique du jeu, les règles de types et le score
-
-### En français simple :
-
-- HTML = la base de la page
-- CSS = ce qui donne du style
-- JavaScript = ce qui rend la page interactive
-
-Tu n'as pas besoin de tout comprendre d'un coup. L'important est de voir qu'un projet web est souvent séparé en 3 morceaux :
-
-1. le contenu
-2. le visuel
-3. le comportement
-
-## Comment fonctionne le jeu
-
-Le jeu utilise un "tableau d'efficacité" de Pokémon.
-
-Chaque type a un effet sur les autres types :
-
-- très efficace
-- normal
-- peu efficace
-- sans effet
-
-Dans le code, ça ressemble à quelque chose comme :
-
-```javascript
-chart["Ice"]["Dragon"] = 2;
-```
-
-Cela veut dire :
-
-- Glace attaque Dragon
-- et c'est très efficace
-
-Le fichier `app.js` contient :
-
-- les types Pokémon
-- les règles de bonus/malus
-- les questions aléatoires
-- le calcul du score
-- la gestion de l'affichage final
-
-## Comment modifier le jeu
-
-Tu peux commencer par de petites changements simples.
-
-### 1. Changer le texte
-
-Ouvre `index.html` ou `app.js` et modifie les textes affichés à l'écran.
+Le jeu s'appuie sur les règles de type de Pokémon.
 
 Par exemple :
 
-- remplacer "Très efficace" par "Super efficace"
-- changer "Question 01 / 10" en quelque chose de ton goût
-- modifier le message final
+- Glace contre Dragon est très efficace
+- Eau contre Feu est très efficace
+- Plante contre Eau est très efficace
+- Électrik contre Sol est sans effet
 
-### 2. Changer les couleurs
+Ces règles sont enregistrées dans le code JavaScript.
 
-Ouvre `styles.css` et change les couleurs.
+## Fichier HTML
 
-Tu peux tester des choses comme :
+Le fichier `index.html` contient :
 
-- fond plus sombre
-- boutons rouges ou violets
-- texte plus grand
+- le titre du quiz
+- l'écran de configuration
+- la zone de question
+- les boutons de réponse
+- l'écran final avec le score
 
-### 3. Modifier les règles
+C'est la structure de base de la page web.
 
-Dans `app.js`, la fonction `buildChart()` contient les règles de combat.
+## Fichier CSS
 
-C'est ici que sont définis les bonus et malus entre les types.
+Le fichier `styles.css` donne le style visuel du site.
 
-Si tu veux ajouter une règle ou corriger une règle, c'est là qu'il faut regarder.
+Il contrôle :
 
-### 4. Modifier le nombre de questions
+- les couleurs
+- la taille des textes
+- la disposition des blocs
+- les boutons
+- les états visuels comme le bon ou le mauvais choix
 
-Le jeu limite le nombre de questions, mais tu peux le changer dans `app.js`.
+## Fichier JavaScript
 
-Le code vérifie souvent une valeur comme :
+Le fichier `app.js` est le cœur du jeu.
 
-```javascript
-Math.min(50, Math.max(1, ...))
-```
+Il contient :
 
-Ça veut dire :
+- la liste des types Pokémon
+- les règles de force et de faiblesse
+- les questions aléatoires
+- la vérification des réponses
+- le calcul du score
+- l'affichage des résultats
 
-- minimum 1 question
-- maximum 50 questions
-- sinon, on prend une valeur sûre
+### Exemple simple de logique
 
-## Ce que tu peux apprendre en lisant le code
+Le code crée une table qui relie un type d'attaque à un type de défense.
 
-Même si tu es débutant, tu peux déjà comprendre une partie du projet.
-
-### Les variables
-
-```javascript
-let score = 0;
-```
-
-Une variable sert à stocker une valeur. Ici, le score du joueur.
-
-### Les fonctions
+Par exemple, une règle peut être écrite de cette façon :
 
 ```javascript
-function startQuiz() {
-  // logique de démarrage
-}
+setEffectiveness("Ice", ["Dragon"], 2);
 ```
 
-Une fonction, c'est un petit bloc de code qui fait une action précise.
+Cela signifie :
 
-### Les tableaux
+- l'attaque Glace
+- contre le type Dragon
+- est très efficace
 
-```javascript
-const OLDER_TYPES = ["Normal", "Fire", "Water", "Electric"];
-```
+## Le déroulement d'une partie
 
-Un tableau est une liste de valeurs.
+Une partie suit ce principe :
 
-### Les objets
+1. le joueur choisit le nombre de questions
+2. le jeu choisit une question au hasard
+3. le joueur choisit la bonne réponse
+4. le score est mis à jour
+5. la question suivante apparaît
+6. à la fin, le score total est affiché
 
-```javascript
-const TYPE_NAMES = {
-  Normal: "Normal",
-  Fire: "Feu"
-};
-```
+## Les réponses possibles
 
-Un objet associe une clé à une valeur. Ici, le type anglais est associé à son nom français.
+Pour chaque question, le joueur a quatre choix :
 
-## Tester le projet
+- Normal
+- Très efficace
+- Peu efficace
+- Sans effet
 
-Quand tu modifies quelque chose :
+La bonne réponse dépend des règles de type entre l'attaque et la défense.
 
-1. ouvre `index.html` dans le navigateur
-2. ou recharge la page si tu utilises un serveur local
-3. vérifie que le jeu fonctionne encore
+## Le score
 
-Pour un jeu simple, il vaut mieux faire de très petits changements et tester souvent.
+Le score augmente à chaque bonne réponse.
 
-## Astuces pour bien commencer
+À la fin de la partie, le jeu affiche :
 
-Si tu veux apprendre sans te perdre :
+- le nombre de bonnes réponses
+- le nombre total de questions
+- un écran de fin
 
-- commence par lire `index.html`
-- puis `styles.css`
-- puis `app.js`
-- essaie un changement facile, comme un mot ou une couleur
-- recharge la page et vérifie le résultat
+## Un projet simple à comprendre
 
-C'est souvent comme ça qu'on apprend en développement :
+Ce projet est abordable pour un débutant car il est séparé en parties claires :
 
-- petit changement
-- test
-- correction
-- repetition
+- HTML pour la structure
+- CSS pour le style
+- JavaScript pour la logique
 
-## Idée de progression
+Cela permet de voir comment un petit site web peut fonctionner sans être trop compliqué.
 
-Voici quelques améliorations faciles à essayer :
-
-- ajouter un compteur de bonnes réponses
-- afficher un message plus détaillé à la fin
-- ajouter un mode "entrainement"
-- changer le thème visuel du jeu
-- ajouter de la musique ou un son simple
-
-## Résumé
-
-Ce projet est une bonne petite introduction au développement web parce qu'il est :
-
-- simple
-- visible immédiatement
-- modifiable facilement
-- parfait pour apprendre sans beaucoup de dépendances
-
-Tu n'as pas besoin de tout maîtriser pour commencer : il suffit de comprendre le but et de faire une petite modification à la fois.
-
-## Fichiers importants
+## Fichiers du projet
 
 - [index.html](index.html)
 - [styles.css](styles.css)
 - [app.js](app.js)
 
-Si tu veux, je peux aussi te faire une version encore plus simple de ce README, avec :
+## Objectif du projet
 
-- une explication étape par étape du code
-- une liste de mini défis pour débutant
-- une version 100 % en français très pédagogique
+Le but principal de ce projet est de présenter un quiz Pokémon basé sur les attaques et leurs efficacités, de façon simple et visuelle.
+
+Il est conçu comme une petite application web pédagogique, facile à lire et à comprendre pour quelqu'un qui découvre le développement web.
