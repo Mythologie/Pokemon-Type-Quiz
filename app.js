@@ -30,12 +30,14 @@ const countInput = document.querySelector("#question-count");
 // querySelectorAll returns a collection. The spread operator (...) changes it into a normal array.
 const answerButtons = [...document.querySelectorAll(".answer-button")];
 const generationCards = [...document.querySelectorAll(".generation-card")];
+const mistakesList = document.querySelector("#mistakes-list");
 
 // These variables represent the changing state of the current game.
 let chart; // The table of effectiveness values.
 let pairs = []; // The randomly selected attack/defender questions.
 let questionIndex = 0; // The position of the current question in pairs.
 let score = 0; // The number of correct answers.
+let mistakes = []; // Questions answered incorrectly in the current game.
 
 // Build a complete table of attack types versus defending types.
 function buildChart(includeFairy) {
@@ -119,6 +121,7 @@ function startQuiz() {
   pairs = shuffle(Object.keys(chart).flatMap((attack) => Object.keys(chart).map((defender) => [attack, defender]))).slice(0, count);
   questionIndex = 0;
   score = 0;
+  mistakes = [];
 
   // Hide setup and result screens, then show the quiz screen.
   setupPanel.classList.add("hidden");
@@ -152,6 +155,14 @@ function answerQuestion(button) {
 
   // Increase the score only when the selected answer is correct.
   if (isCorrect) score += 1;
+  if (!isCorrect) {
+    mistakes.push({
+      attack,
+      defender,
+      selectedAnswer: ANSWER_LABELS[button.dataset.answer],
+      correctAnswer: ANSWER_LABELS[correctAnswer]
+    });
+  }
   // Color the clicked button. If it was wrong, also show the correct button.
   button.classList.add(isCorrect ? "correct" : "wrong");
   if (!isCorrect) answerButtons.find((answerButton) => answerButton.dataset.answer === correctAnswer).classList.add("correct");
@@ -174,6 +185,18 @@ function showResult() {
   document.querySelector("#final-score").textContent = score;
   document.querySelector("#final-total").textContent = `/ ${pairs.length}`;
   document.querySelector("#result-message").textContent = score === pairs.length ? "Tableau parfaitement maîtrisé." : "Chaque question est une occasion de mieux lire le tableau.";
+  mistakesList.replaceChildren();
+  if (mistakes.length === 0) {
+    const item = document.createElement("li");
+    item.textContent = "Aucune erreur. Bravo !";
+    mistakesList.append(item);
+  } else {
+    mistakes.forEach(({ attack, defender, selectedAnswer, correctAnswer }) => {
+      const item = document.createElement("li");
+      item.textContent = `${TYPE_NAMES[attack]} attaque ${TYPE_NAMES[defender]} : ta réponse était « ${selectedAnswer} », la bonne réponse était « ${correctAnswer} ».`;
+      mistakesList.append(item);
+    });
+  }
   // Smoothly scroll to the result in case the page is long.
   resultPanel.scrollIntoView({ behavior: "smooth", block: "center" });
 }

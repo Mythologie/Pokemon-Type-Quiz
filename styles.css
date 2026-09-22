@@ -142,6 +142,9 @@ legend { margin-bottom: 12px; color: var(--muted); font-size: 12px; font-weight:
 .result-score strong { font-size: clamp(70px, 12vw, 120px); letter-spacing: -.08em; line-height: .85; }
 .result-score span { color: var(--muted); font-family: "DM Mono", monospace; font-size: 20px; }
 .result-panel p:not(.section-index) { margin: 0 auto 28px; color: var(--muted); font-size: 14px; }
+.mistakes-review { margin: 0 auto 28px; max-width: 680px; text-align: left; }
+.mistakes-review h3 { margin: 0 0 12px; color: var(--ink); font-size: 15px; }
+.mistakes-review ul { display: grid; gap: 8px; margin: 0; padding-left: 20px; color: var(--muted); font-size: 13px; line-height: 1.5; }
 .footer-note { padding-top: 20px; }
 
 /* This animation is used when panels appear. */
