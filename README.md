@@ -67,6 +67,7 @@ Il contient :
 - les questions aléatoires
 - la vérification des réponses
 - le calcul du score
+- le suivi des erreurs
 - l'affichage des résultats
 
 ### Exemple simple de logique
@@ -94,7 +95,7 @@ Une partie suit ce principe :
 3. le joueur choisit la bonne réponse
 4. le score est mis à jour
 5. la question suivante apparaît
-6. à la fin, le score total est affiché
+6. à la fin, le score total et le récapitulatif des erreurs sont affichés
 
 ## Les réponses possibles
 
@@ -116,6 +117,13 @@ Le score augmente à chaque bonne réponse.
 - le nombre de bonnes réponses
 - le nombre total de questions
 - un écran de fin
+- chaque question à laquelle le joueur a répondu incorrectement
+- la réponse choisie par le joueur pour chaque erreur
+- la solution correcte pour chaque erreur
+
+Les erreurs sont présentées sous forme de cartes colorées. La réponse du
+joueur apparaît en rouge et la solution apparaît en vert. Les types Pokémon
+affichés dans chaque question utilisent aussi leur couleur correspondante.
 
 ## Un projet simple à comprendre
 
