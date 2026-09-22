@@ -72,7 +72,7 @@ function buildChart(includeFairy) {
   setEffectiveness("Ghost", ["Psychic", "Ghost"], 2); setEffectiveness("Ghost", ["Dark"], 0.5); setEffectiveness("Ghost", ["Normal"], 0);
   setEffectiveness("Dragon", ["Dragon"], 2); setEffectiveness("Dragon", ["Steel"], 0.5); setEffectiveness("Dragon", ["Fairy"], 0);
   setEffectiveness("Dark", ["Psychic", "Ghost"], 2); setEffectiveness("Dark", ["Fighting", "Dark", "Fairy"], 0.5);
-  setEffectiveness("Steel", ["Ice", "Rock", "Fairy"], 2); setEffectiveness("Steel", ["Fire", "Water", "Electric", "Steel"], 0.5);
+  setEffectiveness("Steel", ["Ice", "Rock", "Fairy"], 2); setEffectiveness("Steel", ["Fire", "Water", "Steel"], 0.5);
 
   if (includeFairy) {
     // Fairy rules only exist in the newer table.
