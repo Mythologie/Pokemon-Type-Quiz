@@ -1,3 +1,7 @@
+/* CSS controls how the HTML looks: colors, spacing, fonts, and layout. */
+
+/* These reusable values are CSS variables. Changing one value updates every
+   rule that uses the same variable. */
 :root {
   --paper: #f4efe6;
   --ink: #1e2522;
@@ -11,10 +15,13 @@
   --shadow: 0 18px 45px rgba(49, 42, 32, .08);
 }
 
+/* Use border-box so an element's padding is included in its declared width. */
 * { box-sizing: border-box; }
 
+/* Clicking an internal link scrolls smoothly instead of jumping immediately. */
 html { scroll-behavior: smooth; }
 
+/* The body is the visible page background and the default text container. */
 body {
   margin: 0;
   color: var(--ink);
@@ -24,23 +31,29 @@ body {
   background-size: 7px 7px;
 }
 
+/* Make form controls use the same font as the rest of the page. */
 button, input { font: inherit; }
+/* Show a hand cursor when an element can be clicked. */
 button { cursor: pointer; }
 
+/* Keep the application centered and limit its maximum width. */
 .app-shell { width: min(100% - 40px, 960px); margin: 0 auto; padding: 25px 0 28px; }
 
+/* These elements use flexbox to place their children on one horizontal line. */
 .topbar, .footer-note, .quiz-meta, .setup-footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
+/* Header, logo, and small label styles. */
 .topbar { border-bottom: 1px solid var(--line); padding-bottom: 20px; }
 .brand { display: flex; align-items: center; gap: 10px; color: var(--ink); font-size: 13px; font-weight: 800; letter-spacing: .11em; text-decoration: none; }
 .brand-mark { display: grid; width: 25px; height: 25px; place-items: center; color: var(--paper); background: var(--ink); border-radius: 50%; font-size: 18px; line-height: 1; }
 .brand-accent { color: var(--orange); }
 .eyebrow, .kicker, .section-index, .quiz-meta, .footer-note { color: var(--muted); font-family: "DM Mono", monospace; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
 
+/* The introduction creates the large title at the top of the game. */
 .intro { max-width: 700px; padding: 72px 0 52px; animation: rise .7s ease both; }
 .kicker, .section-index { margin: 0 0 13px; color: var(--orange-dark); }
 h1, h2, p { margin-top: 0; }
@@ -48,18 +61,23 @@ h1 { margin-bottom: 19px; font-size: clamp(42px, 7vw, 78px); letter-spacing: -.0
 h1 em { color: var(--orange); font-style: normal; }
 .intro-copy { max-width: 420px; color: var(--muted); font-size: 16px; line-height: 1.65; }
 
+/* A panel is a bordered card. The setup, quiz, and result screens all use it. */
 .panel { border: 1px solid var(--line); background: rgba(250, 247, 241, .8); box-shadow: var(--shadow); }
 .setup-panel, .quiz-panel, .result-panel { padding: clamp(22px, 4vw, 42px); animation: rise .7s .1s ease both; }
+/* The heading separates the section title from the small status dot. */
 .panel-heading { display: flex; justify-content: space-between; border-bottom: 1px solid var(--line); padding-bottom: 24px; }
 h2 { margin-bottom: 0; font-size: clamp(25px, 4vw, 38px); letter-spacing: -.045em; line-height: 1.05; }
 .status-dot { width: 11px; height: 11px; margin-top: 4px; border-radius: 50%; background: var(--orange); box-shadow: 0 0 0 6px rgba(232, 93, 53, .12); }
 
+/* Fieldset and generation cards style the generation selection area. */
 fieldset { border: 0; margin: 0; padding: 28px 0; }
 legend { margin-bottom: 12px; color: var(--muted); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+/* Two cards sit side by side on wide screens. */
 .generation-options { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .generation-card { position: relative; display: flex; min-height: 104px; align-items: flex-start; gap: 13px; padding: 20px; border: 1px solid var(--line); background: rgba(244, 239, 230, .48); transition: border-color .2s, background .2s, transform .2s; }
 .generation-card:hover { transform: translateY(-2px); border-color: var(--orange); }
 .generation-card.selected { border-color: var(--ink); background: #eee7da; }
+/* The real radio input is visually hidden, while the card shows its state. */
 .generation-card input { position: absolute; opacity: 0; }
 .radio-indicator { width: 15px; height: 15px; flex: 0 0 auto; margin-top: 2px; border: 1px solid var(--muted); border-radius: 50%; }
 .selected .radio-indicator { border: 4px solid var(--orange); }
@@ -67,6 +85,7 @@ legend { margin-bottom: 12px; color: var(--muted); font-size: 12px; font-weight:
 .generation-title { font-size: 14px; font-weight: 800; }
 .generation-note { color: var(--muted); font-size: 12px; line-height: 1.35; }
 .generation-arrow { margin-left: auto; color: var(--orange); font-size: 18px; }
+/* The lower setup row contains the question count and start button. */
 .setup-footer { gap: 20px; border-top: 1px solid var(--line); padding-top: 24px; }
 .count-control { display: grid; gap: 8px; color: var(--muted); font-size: 12px; font-weight: 700; }
 .count-control input { width: 94px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 0; color: var(--ink); background: transparent; font-weight: 800; }
@@ -74,7 +93,10 @@ legend { margin-bottom: 12px; color: var(--muted); font-size: 12px; font-weight:
 .primary-button:hover, .secondary-button:hover { transform: translateY(-2px); background: var(--orange-dark); }
 .primary-button span, .secondary-button span { margin-left: 18px; color: var(--orange); font-size: 18px; }
 
+/* The hidden class is added and removed by JavaScript to switch screens. */
 .hidden { display: none !important; }
+
+/* Quiz progress and question layout. */
 .quiz-meta { margin-bottom: 10px; }
 .progress-track { height: 4px; margin-bottom: 60px; background: var(--soft); }
 .progress-track span { display: block; width: 0; height: 100%; background: var(--orange); transition: width .35s ease; }
@@ -100,10 +122,12 @@ legend { margin-bottom: 12px; color: var(--muted); font-size: 12px; font-weight:
 .question-block h2 span[data-type="Steel"] { color: #68737c; }
 .question-block h2 span[data-type="Fairy"] { color: #b55e86; }
 .question-subtitle { margin: 15px 0 0; color: var(--muted); }
+/* Each answer is a button. Grid makes four choices into two columns. */
 .answer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .answer-button { display: flex; min-height: 66px; align-items: center; gap: 16px; border: 1px solid var(--line); padding: 15px 18px; color: var(--ink); background: transparent; text-align: left; font-size: 14px; font-weight: 700; transition: border-color .2s, background .2s, transform .2s; }
 .answer-button span { color: var(--muted); font-family: "DM Mono", monospace; font-size: 11px; }
 .answer-button:hover { transform: translateY(-2px); border-color: var(--ink); background: var(--soft); }
+/* JavaScript adds these classes after the player answers. */
 .answer-button.correct { border-color: var(--green); color: var(--green); background: #dfece2; }
 .answer-button.wrong { border-color: var(--red); color: var(--red); background: #f1dfd9; }
 .answer-button:disabled { cursor: default; }
@@ -111,6 +135,7 @@ legend { margin-bottom: 12px; color: var(--muted); font-size: 12px; font-weight:
 .feedback.correct { color: var(--green); }
 .feedback.wrong { color: var(--red); }
 
+/* The result screen centers the final score. */
 .result-panel { padding-top: 55px; padding-bottom: 55px; text-align: center; }
 .result-panel .section-index { margin-bottom: 17px; }
 .result-score { display: flex; align-items: baseline; justify-content: center; gap: 6px; margin: 27px 0 14px; color: var(--orange-dark); }
@@ -119,8 +144,10 @@ legend { margin-bottom: 12px; color: var(--muted); font-size: 12px; font-weight:
 .result-panel p:not(.section-index) { margin: 0 auto 28px; color: var(--muted); font-size: 14px; }
 .footer-note { padding-top: 20px; }
 
+/* This animation is used when panels appear. */
 @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
 
+/* On a small screen, stack controls and cards so they remain readable. */
 @media (max-width: 620px) {
   .app-shell { width: min(100% - 28px, 960px); padding-top: 17px; }
   .eyebrow { display: none; }

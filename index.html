@@ -1,18 +1,31 @@
+<!--
+  HTML describes the content and structure of the page.
+  It does not decide the colors or the game rules:
+  styles.css handles the appearance and app.js handles the game.
+-->
 <!doctype html>
 <html lang="fr">
 <head>
+  <!-- Basic information that helps the browser display the page correctly. -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f4efe6">
   <title>Quiz des types Pokémon</title>
+
+  <!-- These two lines allow the browser to connect to Google Fonts. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- This connects the HTML to the file that controls the visual design. -->
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <!-- <main> contains the main content of the application. -->
   <main class="app-shell">
+    <!-- The header is the small bar at the top of the page. -->
     <header class="topbar">
+      <!-- This link goes back to the beginning of the page. -->
       <a class="brand" href="#top" aria-label="Retour a l'accueil">
         <span class="brand-mark" aria-hidden="true">+</span>
         <span>TYPE<span class="brand-accent">/</span>QUIZ</span>
@@ -20,12 +33,17 @@
       <span class="eyebrow">Pokémon · entraînement</span>
     </header>
 
+    <!-- This is the introduction shown above the game setup. -->
     <section class="intro" id="top">
       <p class="kicker">Efficacité des attaques</p>
       <h1>Lis le match-up.<br><em>Choisis l'impact.</em></h1>
       <p class="intro-copy">Teste tes réflexes sur les tableaux de types Pokémon, génération par génération.</p>
     </section>
 
+    <!--
+      The setup panel is where the player chooses the generation and
+      the number of questions before starting.
+    -->
     <section class="panel setup-panel" id="setup-panel" aria-labelledby="setup-title">
       <div class="panel-heading">
         <div>
@@ -35,8 +53,10 @@
         <span class="status-dot" aria-hidden="true"></span>
       </div>
 
+      <!-- A fieldset groups the two generation choices together. -->
       <fieldset class="generation-options">
         <legend>Tableau des types</legend>
+        <!-- Radio buttons allow only one generation to be selected. -->
         <label class="generation-card selected">
           <input type="radio" name="generation" value="old" checked>
           <span class="radio-indicator" aria-hidden="true"></span>
@@ -57,6 +77,7 @@
         </label>
       </fieldset>
 
+      <!-- This area contains the question count and the start button. -->
       <div class="setup-footer">
         <label class="count-control" for="question-count">
           <span>Nombre de questions</span>
@@ -68,28 +89,38 @@
       </div>
     </section>
 
+    <!--
+      The quiz panel is hidden at first. JavaScript removes the "hidden"
+      class when the player clicks "Commencer".
+    -->
     <section class="panel quiz-panel hidden" id="quiz-panel" aria-labelledby="question-heading">
+      <!-- This line shows the current question number and progress. -->
       <div class="quiz-meta">
         <span id="question-counter">Question 01 / 10</span>
         <span id="progress-label">0 % complete</span>
       </div>
+      <!-- The inner span grows horizontally to show progress. -->
       <div class="progress-track" aria-hidden="true"><span id="progress-bar"></span></div>
 
+      <!-- JavaScript replaces the type names in these two spans for each question. -->
       <div class="question-block">
         <p class="section-index">Quel est le verdict ?</p>
         <h2 id="question-heading"><span id="attack-type">Glace</span> attaque <span id="defender-type">Dragon</span></h2>
         <p class="question-subtitle">Cette attaque est...</p>
       </div>
 
+      <!-- Each button has a data-answer value used by JavaScript to check the answer. -->
       <div class="answer-grid" id="answer-grid">
         <button class="answer-button" data-answer="Normal" type="button"><span>01</span>Normal</button>
         <button class="answer-button" data-answer="Super Effective" type="button"><span>02</span>Très efficace</button>
         <button class="answer-button" data-answer="Not very effective" type="button"><span>03</span>Peu efficace</button>
         <button class="answer-button" data-answer="Immune" type="button"><span>04</span>Sans effet</button>
       </div>
+      <!-- Feedback tells the player whether the selected answer was correct. -->
       <p class="feedback" id="feedback" role="status" aria-live="polite"></p>
     </section>
 
+    <!-- The result panel is shown after the last question. -->
     <section class="panel result-panel hidden" id="result-panel" aria-labelledby="result-title">
       <p class="section-index">Session terminee</p>
       <h2 id="result-title">Bien joue.</h2>
@@ -98,11 +129,13 @@
       <button class="secondary-button" id="restart-button" type="button">Recommencer <span aria-hidden="true">↗</span></button>
     </section>
 
+    <!-- The footer is the small information line at the bottom. -->
     <footer class="footer-note">
           <span>Entraînement type</span>
           <span>Génération 2 — 9+</span>
     </footer>
   </main>
+  <!-- Load the JavaScript after the page elements exist. -->
   <script src="app.js"></script>
 </body>
 </html>
