@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4efe6">
+  <title>Quiz des types Pokémon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="Retour a l'accueil">
+        <span class="brand-mark" aria-hidden="true">+</span>
+        <span>TYPE<span class="brand-accent">/</span>QUIZ</span>
+      </a>
+      <span class="eyebrow">Pokémon · entraînement</span>
+    </header>
+
+    <section class="intro" id="top">
+      <p class="kicker">Efficacité des attaques</p>
+      <h1>Lis le match-up.<br><em>Choisis l'impact.</em></h1>
+      <p class="intro-copy">Teste tes réflexes sur les tableaux de types Pokémon, génération par génération.</p>
+    </section>
+
+    <section class="panel setup-panel" id="setup-panel" aria-labelledby="setup-title">
+      <div class="panel-heading">
+        <div>
+          <p class="section-index">01 / configuration</p>
+          <h2 id="setup-title">Règle ton entraînement</h2>
+        </div>
+        <span class="status-dot" aria-hidden="true"></span>
+      </div>
+
+      <fieldset class="generation-options">
+        <legend>Tableau des types</legend>
+        <label class="generation-card selected">
+          <input type="radio" name="generation" value="old" checked>
+          <span class="radio-indicator" aria-hidden="true"></span>
+          <span class="generation-content">
+            <span class="generation-title">Générations 2 à 5</span>
+            <span class="generation-note">17 types · sans le type Fée</span>
+          </span>
+          <span class="generation-arrow" aria-hidden="true">↗</span>
+        </label>
+        <label class="generation-card">
+          <input type="radio" name="generation" value="new">
+          <span class="radio-indicator" aria-hidden="true"></span>
+          <span class="generation-content">
+            <span class="generation-title">Génération 6 et suivantes</span>
+            <span class="generation-note">18 types · avec le type Fée</span>
+          </span>
+          <span class="generation-arrow" aria-hidden="true">↗</span>
+        </label>
+      </fieldset>
+
+      <div class="setup-footer">
+        <label class="count-control" for="question-count">
+          <span>Nombre de questions</span>
+          <input id="question-count" type="number" min="1" max="50" value="10">
+        </label>
+        <button class="primary-button" id="start-button" type="button">
+          Commencer <span aria-hidden="true">↗</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="panel quiz-panel hidden" id="quiz-panel" aria-labelledby="question-heading">
+      <div class="quiz-meta">
+        <span id="question-counter">Question 01 / 10</span>
+        <span id="progress-label">0 % complete</span>
+      </div>
+      <div class="progress-track" aria-hidden="true"><span id="progress-bar"></span></div>
+
+      <div class="question-block">
+        <p class="section-index">Quel est le verdict ?</p>
+        <h2 id="question-heading"><span id="attack-type">Glace</span> attaque <span id="defender-type">Dragon</span></h2>
+        <p class="question-subtitle">Cette attaque est...</p>
+      </div>
+
+      <div class="answer-grid" id="answer-grid">
+        <button class="answer-button" data-answer="Normal" type="button"><span>01</span>Normal</button>
+        <button class="answer-button" data-answer="Super Effective" type="button"><span>02</span>Très efficace</button>
+        <button class="answer-button" data-answer="Not very effective" type="button"><span>03</span>Peu efficace</button>
+        <button class="answer-button" data-answer="Immune" type="button"><span>04</span>Sans effet</button>
+      </div>
+      <p class="feedback" id="feedback" role="status" aria-live="polite"></p>
+    </section>
+
+    <section class="panel result-panel hidden" id="result-panel" aria-labelledby="result-title">
+      <p class="section-index">Session terminee</p>
+      <h2 id="result-title">Bien joue.</h2>
+      <div class="result-score"><strong id="final-score">0</strong><span id="final-total">/ 10</span></div>
+      <p id="result-message">Chaque question est une occasion de mieux lire le tableau.</p>
+      <button class="secondary-button" id="restart-button" type="button">Recommencer <span aria-hidden="true">↗</span></button>
+    </section>
+
+    <footer class="footer-note">
+          <span>Entraînement type</span>
+          <span>Génération 2 — 9+</span>
+    </footer>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
