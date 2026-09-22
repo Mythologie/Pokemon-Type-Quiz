@@ -193,7 +193,29 @@ function showResult() {
   } else {
     mistakes.forEach(({ attack, defender, selectedAnswer, correctAnswer }, index) => {
       const item = document.createElement("li");
-      item.textContent = `Question ${index + 1} — ${TYPE_NAMES[attack]} attaque ${TYPE_NAMES[defender]} | Ta réponse : ${selectedAnswer} | Solution : ${correctAnswer}`;
+      item.className = "mistake-card";
+
+      const question = document.createElement("strong");
+      question.className = "mistake-question";
+      question.textContent = `Question ${index + 1} — ${TYPE_NAMES[attack]} attaque ${TYPE_NAMES[defender]}`;
+
+      const answer = document.createElement("span");
+      answer.className = "mistake-answer mistake-answer-wrong";
+      const answerLabel = document.createElement("b");
+      answerLabel.textContent = "Ta réponse";
+      const answerValue = document.createElement("span");
+      answerValue.textContent = selectedAnswer;
+      answer.append(answerLabel, answerValue);
+
+      const solution = document.createElement("span");
+      solution.className = "mistake-answer mistake-answer-correct";
+      const solutionLabel = document.createElement("b");
+      solutionLabel.textContent = "Solution";
+      const solutionValue = document.createElement("span");
+      solutionValue.textContent = correctAnswer;
+      solution.append(solutionLabel, solutionValue);
+
+      item.append(question, answer, solution);
       mistakesList.append(item);
     });
   }

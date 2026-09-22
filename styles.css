@@ -142,9 +142,16 @@ legend { margin-bottom: 12px; color: var(--muted); font-size: 12px; font-weight:
 .result-score strong { font-size: clamp(70px, 12vw, 120px); letter-spacing: -.08em; line-height: .85; }
 .result-score span { color: var(--muted); font-family: "DM Mono", monospace; font-size: 20px; }
 .result-panel p:not(.section-index) { margin: 0 auto 28px; color: var(--muted); font-size: 14px; }
-.mistakes-review { margin: 0 auto 28px; max-width: 680px; text-align: left; }
-.mistakes-review h3 { margin: 0 0 12px; color: var(--ink); font-size: 15px; }
-.mistakes-review ul { display: grid; gap: 8px; margin: 0; padding-left: 20px; color: var(--muted); font-size: 13px; line-height: 1.5; }
+.mistakes-review { margin: 0 auto 32px; max-width: 680px; text-align: left; }
+.mistakes-review h3 { margin: 0 0 14px; color: var(--ink); font-size: 17px; }
+.mistakes-review ul { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; color: var(--muted); font-size: 13px; line-height: 1.5; }
+.mistake-card { display: grid; gap: 9px; padding: 16px; border: 1px solid var(--line); background: rgba(244, 239, 230, .58); }
+.mistake-question { color: var(--ink); font-size: 14px; }
+.mistake-answer { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 9px 11px; border-left: 3px solid; }
+.mistake-answer b { font-size: 11px; letter-spacing: .04em; text-transform: uppercase; }
+.mistake-answer span { font-weight: 800; text-align: right; }
+.mistake-answer-wrong { border-color: var(--red); color: var(--red); background: #f1dfd9; }
+.mistake-answer-correct { border-color: var(--green); color: var(--green); background: #dfece2; }
 .footer-note { padding-top: 20px; }
 
 /* This animation is used when panels appear. */
