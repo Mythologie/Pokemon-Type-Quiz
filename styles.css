@@ -147,6 +147,25 @@ legend { margin-bottom: 12px; color: var(--muted); font-size: 12px; font-weight:
 .mistakes-review ul { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; color: var(--muted); font-size: 13px; line-height: 1.5; }
 .mistake-card { display: grid; gap: 9px; padding: 16px; border: 1px solid var(--line); background: rgba(244, 239, 230, .58); }
 .mistake-question { color: var(--ink); font-size: 14px; }
+.mistake-type { color: var(--orange-dark); }
+.mistake-type[data-type="Normal"] { color: #747474; }
+.mistake-type[data-type="Fire"] { color: #c9472c; }
+.mistake-type[data-type="Water"] { color: #2f72b8; }
+.mistake-type[data-type="Electric"] { color: #b08a00; }
+.mistake-type[data-type="Grass"] { color: #397b4e; }
+.mistake-type[data-type="Ice"] { color: #318e9b; }
+.mistake-type[data-type="Fighting"] { color: #9b3b30; }
+.mistake-type[data-type="Poison"] { color: #874a9c; }
+.mistake-type[data-type="Ground"] { color: #967044; }
+.mistake-type[data-type="Flying"] { color: #537d9e; }
+.mistake-type[data-type="Psychic"] { color: #b34e8f; }
+.mistake-type[data-type="Bug"] { color: #688b3e; }
+.mistake-type[data-type="Rock"] { color: #816648; }
+.mistake-type[data-type="Ghost"] { color: #72588c; }
+.mistake-type[data-type="Dragon"] { color: #64549b; }
+.mistake-type[data-type="Dark"] { color: #4b4d56; }
+.mistake-type[data-type="Steel"] { color: #68737c; }
+.mistake-type[data-type="Fairy"] { color: #b55e86; }
 .mistake-answer { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 9px 11px; border-left: 3px solid; }
 .mistake-answer b { font-size: 11px; letter-spacing: .04em; text-transform: uppercase; }
 .mistake-answer span { font-weight: 800; text-align: right; }

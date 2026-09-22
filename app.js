@@ -197,7 +197,19 @@ function showResult() {
 
       const question = document.createElement("strong");
       question.className = "mistake-question";
-      question.textContent = `Question ${index + 1} — ${TYPE_NAMES[attack]} attaque ${TYPE_NAMES[defender]}`;
+      question.append(`Question ${index + 1} — `);
+
+      const attackType = document.createElement("span");
+      attackType.className = "mistake-type";
+      attackType.dataset.type = attack;
+      attackType.textContent = TYPE_NAMES[attack];
+
+      const defenderType = document.createElement("span");
+      defenderType.className = "mistake-type";
+      defenderType.dataset.type = defender;
+      defenderType.textContent = TYPE_NAMES[defender];
+
+      question.append(attackType, " attaque ", defenderType);
 
       const answer = document.createElement("span");
       answer.className = "mistake-answer mistake-answer-wrong";
