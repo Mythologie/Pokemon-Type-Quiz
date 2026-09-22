@@ -191,9 +191,9 @@ function showResult() {
     item.textContent = "Aucune erreur. Bravo !";
     mistakesList.append(item);
   } else {
-    mistakes.forEach(({ attack, defender, selectedAnswer, correctAnswer }) => {
+    mistakes.forEach(({ attack, defender, selectedAnswer, correctAnswer }, index) => {
       const item = document.createElement("li");
-      item.textContent = `${TYPE_NAMES[attack]} attaque ${TYPE_NAMES[defender]} : ta réponse était « ${selectedAnswer} », la bonne réponse était « ${correctAnswer} ».`;
+      item.textContent = `Question ${index + 1} — ${TYPE_NAMES[attack]} attaque ${TYPE_NAMES[defender]} | Ta réponse : ${selectedAnswer} | Solution : ${correctAnswer}`;
       mistakesList.append(item);
     });
   }
